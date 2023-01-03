@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+
+import os
+import shutil
+import torch
+from diffusers import UnCLIPPipeline
+
+
+model_id = "kakaobrain/karlo-v1-alpha"
+MODEL_CACHE = "diffusers-cache"
+
+if os.path.exists(MODEL_CACHE):
+    shutil.rmtree(MODEL_CACHE)
+os.makedirs(MODEL_CACHE, exist_ok=True)
+
+
+pipe = UnCLIPPipeline.from_pretrained(
+    model_id, 
+    torch_dtype=torch.float16,   
+    cache_dir=MODEL_CACHE,
+)
